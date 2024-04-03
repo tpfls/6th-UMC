@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="signup.css" rel="stylesheet">
+    <script src="signup.js"></script>
+    <title>회원가입</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title"><h1 style="font-size: 36px;">회원가입</h1></div>
+        <div class="line">
+        <hr>
+        </div>
+        </div>
+        
+    <form>
+
+    <div class="name">이름<br>
+        <input id="name" type="text" required>
+        <div id="nameError" class="error">
+    </div>
+    </div>
+
+    <div class="email">이메일<br>
+        <input id="email" type="text" required>
+        <div id="emailError" class="error">
+    </div>
+    </div>
+
+    <div class="age">나이<br>
+        <input id="age" type="number" required>
+        <div id="ageError" class="error">
+    </div>
+    </div>
+
+    <div class="password">비밀번호<br>
+        <input id="password" type="password" required>
+        <div id="passwordError" class="error">
+    </div>
+    </div>
+
+    <div class="passwordCheck">비밀번호 확인<br>
+        <input id="passwordCheck" type="password" required>
+        <div id="passwordCheckError" class="error">
+
+    <div class="signUp">
+        <button id="signUpButton" disabled onclick="signUpCheck()">가입하기</button>
+    </div>
+    </div>
+    </form>
+
+</body>
+</html>

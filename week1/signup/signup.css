@@ -16,6 +16,24 @@ body {
     background-color: rgba(255, 255, 255, 0.7);
     border: none;
     border-radius: 0.5vw;
+    display: flex;html {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: #A4CBE3;
+}
+
+.container {
+    width: 45vw;
+    padding: 2vw 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 0.5vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,11 +60,11 @@ form {
     position: relative;
 }
 
-#nameP, 
-#emailP, 
-#ageP,
-#passwordP,
-#passwordcheckP {
+#name0, 
+#email0, 
+#age0,
+#password0,
+#passwordrepeat {
     width: 100%;
     font-size: 0.7vw;
     color: black;
@@ -71,7 +89,7 @@ input {
 #emailError,
 #ageError,
 #passwordError,
-#passwordcheckError {
+#passwordrepeatError {
     font-size: 0.6vw;
     position: absolute;
     left: 0;
@@ -90,7 +108,7 @@ input {
     top: 63%;
 }
 
-#passwordcheckError {
+#passwordrepeatError {
     top: 79%;
 }
 
@@ -111,7 +129,7 @@ input {
     cursor: not-allowed;
 }
 
-.modalContainer {
+.Container0 {
     position: fixed;
     top: 0;
     left: 0;

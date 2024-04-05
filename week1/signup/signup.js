@@ -2,7 +2,7 @@ let isName = false;
 let isEmail = false;
 let isAge = false;
 let isPassword = false;
-let isPasswordcheck = false;
+let isPasswordrepeat = false;
 
 
 function nameCheck() {
@@ -117,19 +117,19 @@ document.getElementById("password").addEventListener("input", passwordCheck);
 
 
 
-function passwordcheckCheck() {
+function passwordrepeatCheck() {
     const passwordcheck = document.getElementById("passwordcheck");
-    const passwordcheckError = document.getElementById("passwordcheckError");
+    const passwordcheckError = document.getElementById("passwordrepeatError");
     const password = document.getElementById("password");
 
-    if (passwordcheck.value === '' || password.value != passwordcheck.value) {
-        passwordcheckError.style.color = '#FC0E0E';
-        passwordcheckError.textContent = '비밀번호가 일치하지 않습니다.';
-        isPasswordcheck = false;
+    if (passwordrepeat.value === '' || password.value != passwordrepeat.value) {
+        passwordrepeatError.style.color = '#FC0E0E';
+        passwordrepeatError.textContent = '비밀번호가 일치하지 않습니다.';
+        isPasswordrepeat = false;
     } else {
-        passwordcheckError.style.color = '#03711B';
-        passwordcheckError.textContent = '비밀번호가 일치합니다.';
-        isPasswordcheck = true;
+        passwordrepeatError.style.color = '#03711B';
+        passwordrepeatError.textContent = '비밀번호가 일치합니다.';
+        isPasswordrepeat = true;
     }
 
     formCheck();

@@ -42,11 +42,11 @@ form {
     position: relative;
 }
 
-#nameP, 
-#emailP, 
-#ageP,
-#passwordP,
-#passwordcheckP {
+#name0, 
+#email0, 
+#age0,
+#password0,
+#passwordrepeat {
     width: 100%;
     font-size: 0.7vw;
     color: black;
@@ -71,7 +71,7 @@ input {
 #emailError,
 #ageError,
 #passwordError,
-#passwordcheckError {
+#passwordrepeatError {
     font-size: 0.6vw;
     position: absolute;
     left: 0;
@@ -90,7 +90,7 @@ input {
     top: 63%;
 }
 
-#passwordcheckError {
+#passwordrepeatError {
     top: 79%;
 }
 
@@ -111,7 +111,7 @@ input {
     cursor: not-allowed;
 }
 
-.modalContainer {
+.Container0 {
     position: fixed;
     top: 0;
     left: 0;

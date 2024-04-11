@@ -1,0 +1,84 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  background-color: #E1E7F5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw; 
+  overflow-x: hidden; 
+}
+
+header {
+  text-align: center;
+  font-size: 15px;
+  margin-left: 120px;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 130%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box; 
+}
+
+#newTask {
+  width: 100%;
+  padding: 15px; 
+  margin: 20px 0; 
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  font-size: 1em; 
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+  width: 100%; 
+}
+
+li {
+  padding: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #B5D2ED;
+}
+
+h2 {
+  color: #333;
+  border-bottom: 2px solid #B5D2ED;
+  padding-bottom: 5px;
+}
+
+#listscontainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; 
+}
+
+#todosection, #donesection{
+  width: 48%;
+  font-size: 15px;
+}
+
+
+li button {
+  padding: 5px 10px;
+  background-color: #B5D2ED;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+li button:hover {
+  background-color: #D5E4F2;
+}

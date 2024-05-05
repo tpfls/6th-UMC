@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 const BigBox = styled.div`
     width:194px;
-   
-   
+    position: relative;
+    margin: 1vw 0.5vw;
+    cursor: pointer;
     
-
 `
 const TopBox = styled.div`
     width:194px;

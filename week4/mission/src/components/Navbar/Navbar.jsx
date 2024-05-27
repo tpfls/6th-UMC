@@ -20,7 +20,7 @@ const Nav = styled.nav`
 const Link = styled(RouterLink)`
     color: ${({ active }) => (active ? 'yellow' : 'white')};
     text-decoration: none; 
-    margin: 0 10px; 
+    margin: 0 10px;
     cursor: pointer;
 
     &:hover{

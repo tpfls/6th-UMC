@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React from 'react';
 import GlobalStyle from './styles/GlobalStyle';
 
 import Navbar from './components/Navbar';
@@ -15,47 +15,28 @@ import UpComing from './pages/UpComingPage';
 import MovieDetailPage from './pages/MovieDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 
-const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const handleLogin = (token) => {
-    localStorage.setItem('token', token);
-    setIsAuthenticated(true);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-  };
-
+function App() {
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyle/>
       <Router>
-        <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
+        <Navbar/>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-          <Route path="/popular" element={<PopularPage />} />
-          <Route path="/now" element={<NowPlayingPage />} />
-          <Route path="/top" element={<TopRatedPage />} />
-          <Route path="/up" element={<UpComing />} />
-          <Route path="/movie/:id" element={<MovieDetailPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/" element={<MainPage/>} />
+          <Route path="/signup" element={<SignUpPage/>} />
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/popular" element={<PopularPage/>} />
+          <Route path="/now" element={<NowPlayingPage/>} />
+          <Route path="/top" element={<TopRatedPage/>} />
+          <Route path="/up" element={<UpComing/>} />
+          <Route path="/movie/:id" element={<MovieDetailPage/>} />
+          <Route path="*" element={<NotFoundPage/>} />
         </Routes>
-        <Footer />
+        <Footer/>
       </Router>
     </>
-  );
-};
+  )
+}
 
 export default App;
-

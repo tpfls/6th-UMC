@@ -3,15 +3,15 @@ import { FaStar } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
 
 const MovieBox = styled.div`
-    width: 90%;
-    margin: 1vw 0.5vw;
+    width: 80%;
+    margin: 1vw 1.5vw;
     position: relative;
     cursor: pointer;
 `
 
 const Poster = styled.img`
     width: 100%;
-    height: 15vw;
+    height: 14vw;
 `
 
 const MovieBoxBottom = styled.div`
@@ -55,21 +55,21 @@ const OverView = styled.p`
     padding-right: 0.5vw;
 `;
 
-const ItemMovie = ({id, poster, original_title, title, rating, overview, release_date}) => {
+const ItemMovie = ({id, poster, title, rating, overview, release_date}) => {
     const navigate = useNavigate();
     const params = useParams();
 
     const handleClick = () => {
-        navigate(`/movie/${original_title}`, { state: { movie: { id, poster, title, rating, overview, release_date } } });
+        navigate(`/movie/${id}`, { state: { movie: { id, poster, title, rating, overview, release_date } } });
     };
 
 
-    
+    // explain 보이기
     const handleMouseOver = (e) => {
         e.currentTarget.querySelector('.overExplain').style.display = 'block';
     };
 
-    
+    // explain 안보이기
     const handleMouseOut = (e) => {
         e.currentTarget.querySelector('.overExplain').style.display = 'none';
     };

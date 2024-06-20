@@ -56,12 +56,12 @@ const OverView = styled.p`
     padding-right: 0.5vw;
 `;
 
-const ItemResult = ({id, poster, original_title, title, rating, overview, release_date}) => {
+const ItemResult = ({id, poster, title, rating, overview, release_date}) => {
     const navigate = useNavigate();
     const params = useParams();
 
     const handleClick = () => {
-        navigate(`/movie/${original_title}`, { state: { movie: { id, poster, title, rating, overview, release_date } } });
+        navigate(`/movie/${id}`, { state: { movie: { id, poster, title, rating, overview, release_date } } });
     };
 
 

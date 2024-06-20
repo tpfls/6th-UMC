@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
-import PageContainer from '../styles/PageStyle';
-import Banner from '../components/MainPage/Banner';
-import ListResult from '../components/list/list-result';
-import SearchIcon from '../assets/images/searchIcon.jpg';
-import { FaStar } from 'react-icons/fa';
+import React, { useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import PageContainer from "../styles/PageStyle";
+import Banner from "../components/MainPage/Banner";
+import ListResult from "../components/list/list-result";
+import SearchIcon from "../assets/images/searchIcon.png";
 
 const SearchBox = styled.div`
     width: 25.75vw;
@@ -45,44 +44,33 @@ const SearchImg = styled.img`
     cursor: pointer;
 `
 
-const LoadingBanner = styled.div`
-    width: 100%;
-    height: 5vw;
-    background-color: #333;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5vw;
-`
+function useDebounce(value, delay) {
+    const [debounce, setDebounce] = useState(value);
+
+    React.useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebounce(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [value, delay]);
+
+    return debounce;
+}
 
 const MainPage = () => {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    const [username, setUsername] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const accessToken = import.meta.env.VITE_API_ACCESS;
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            axios.get('https://api.example.com/userinfo', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then(response => {
-                const userData = response.data;
-                setUsername(userData.name);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching user info:', error);
-                setLoading(false);
-            });
-        }
-    }, []);
+    const debounceSearch = useDebounce(search, 500);
 
     const handleSearch = () => {
+        setIsLoading(true);
+
         const options = {
             method: 'GET',
             url: 'https://api.themoviedb.org/3/search/movie',
@@ -100,23 +88,28 @@ const MainPage = () => {
         axios.request(options)
             .then(response => {
                 setSearchResults(response.data.results);
+                console.log(response.data.results);
             })
-            .catch(err => console.error(err));
+            .catch(err => console.error(err))
+            .finally(() => { setIsLoading(false) });
     };
+
+    React.useEffect(() => {
+        handleSearch();
+    }, [debounceSearch]);
 
     return (
         <PageContainer>
-            {loading && <LoadingBanner>Loading...</LoadingBanner>}
-            {!loading && <Banner name={username}/>}
+            <Banner/>
             <SearchBox>
                 <MainP>Find your movies!</MainP>
                 <SearchBox2>
-                    <SearchInput type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="로딩 중..."/>
+                    <SearchInput type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search.."/>
                     <SearchImg src={SearchIcon} alt="search" onClick={handleSearch}/>
                 </SearchBox2>
             </SearchBox>
 
-            <ListResult searchResults={searchResults}/>
+            {isLoading ? <MainP style={{fontSize: "1vw", marginTop: "2vw"}}>데이터를 받아오는 중 입니다.</MainP> : <ListResult searchResults={searchResults}/>}
         </PageContainer>
     )
 }

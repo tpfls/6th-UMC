@@ -2,10 +2,12 @@ import styled from "styled-components";
 import { useLocation } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 import PageCotainer from "../styles/PageStyle";
+import ListCredit from "../components/list/list-credit";
+
 
 const BackgroundDiv = styled.div`
     width: 100%;
-    min-height: calc(100vh - 6vw);
+    height: calc(100vh - 6vw);
     position: absolute;
     background: rgba(0, 0, 0, 0.8);
 `
@@ -32,6 +34,15 @@ const DetailP = styled.p`
     color: white;
 `
 
+const DirectorContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 2vw 0;
+`
+
 const MovieDetailPage = () => {
     const location = useLocation();
     const movie = location.state.movie;
@@ -48,24 +59,31 @@ const MovieDetailPage = () => {
     };
 
     return (
-        <PageCotainer style={{justifyContent: "center"}} background={movie.poster}>
-            <BackgroundDiv/>
+        <>
+            <PageCotainer style={{justifyContent: "center"}} background={movie.poster}>
+                <BackgroundDiv/>
 
-            <MovieDetailContainer>
-                <PosterImg src={movie.poster} alt="poster"/>
-                <ExplainBox>
-                    <DetailP fontWeight="bold" fontSize="1.6vw">{movie.title}</DetailP>
-                    <DetailP>평점 {renderStars(movie.rating)}</DetailP>
-                    <DetailP>개봉일 {movie.release_date}</DetailP>
-                    <DetailP>줄거리</DetailP>
-                    {movie.overview ? (
-                        <DetailP>{movie.overview}</DetailP>
-                    ) : (
-                        <DetailP>TMDB에서 제공하는 API에 상세 줄거리 정보가 없습니다.</DetailP>
-                    )}
-                </ExplainBox>
-            </MovieDetailContainer>
-        </PageCotainer>
+                <MovieDetailContainer>
+                    <PosterImg src={movie.poster} alt="poster"/>
+                    <ExplainBox>
+                        <DetailP fontWeight="bold" fontSize="1.6vw">{movie.title}</DetailP>
+                        <DetailP>평점 {renderStars(movie.rating)}</DetailP>
+                        <DetailP>개봉일 {movie.release_date}</DetailP>
+                        <DetailP>줄거리</DetailP>
+                        {movie.overview ? (
+                            <DetailP>{movie.overview}</DetailP>
+                        ) : (
+                            <DetailP>TMDB에서 제공하는 API에 상세 줄거리 정보가 없습니다.</DetailP>
+                        )}
+                    </ExplainBox>
+                </MovieDetailContainer>
+            </PageCotainer>
+
+            <DirectorContainer>
+                <DetailP fontWeight="bold" fontSize="1.2vw" style={{marginBottom: "3vw"}}>출연진 및 제작진</DetailP>
+                <ListCredit movie_id={movie.id}/>
+            </DirectorContainer>
+        </>
     )
 }
 

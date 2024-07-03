@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 
 const override = {
@@ -8,12 +8,25 @@ const override = {
 };
 
 const Spinner = ({ loading }) => {
+    const [size, setSize] = useState(Math.max(30, window.innerWidth * 0.05));
+
+    useEffect(() => {
+        const handleResize = () => {
+            setSize(Math.max(30, window.innerWidth * 0.05));
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     return (
         <ClipLoader
             color="#303DDD"
             loading={loading}
             cssOverride={override}
-            size={60}
+            size={size}
         />
     );
 };

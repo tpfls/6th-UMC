@@ -1,64 +1,106 @@
-// ListMovie.jsx
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import styled from "styled-components";
+import ItemMovie from "../listItem/item-movie";
+import Spinner from "../Spinner/Spinner";
 
-import React from 'react';
-import styled from 'styled-components';
-
-const MovieList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 0.5rem;
-    padding: 0.5rem;
-  }
+const Container = styled.div`
+    width: 65%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
 `;
 
-const MovieItem = styled.div`
-  background-color: #232649;
-  color: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+const ListMovie = ({ Url, pagingPage }) => {
+    const [movies, setMovies] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const accessToken = import.meta.env.VITE_API_ACCESS;
 
-  h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
+    // paingPage를 파라미터로 받은 경우 -> 페이징
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
 
-  p {
-    font-size: 0.9rem;
-    line-height: 1.2;
-  }
+                const options = {
+                    method: 'GET',
+                    url: Url,
+                    params: pagingPage ? { language: 'ko', page: pagingPage } : { language: 'ko' },
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                };
 
-  @media (max-width: 768px) {
-    padding: 0.5rem;
-    border-radius: 4px;
+                const response = await axios.request(options);
+                setMovies(response.data.results);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    h3 {
-      font-size: 1rem;
-      margin-bottom: 0.3rem;
-    }
+        fetchData();
+    }, [Url, pagingPage]);
 
-    p {
-      font-size: 0.8rem;
-    }
-  }
-`;
+    // pagingPage를 파라미터로 받지 않은 경우 -> 통신으로부터 받은 currentPage로 무한 스크롤
+    useEffect(() => {
+        if (!pagingPage) {
+            const handleScroll = () => {
+                if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+                loadMoreItems();
+            };
 
-const ListMovie = ({ movies }) => {
-  return (
-    <MovieList>
-      {movies.map((movie) => (
-        <MovieItem key={movie.id}>
-          <h3>{movie.title}</h3>
-          <p>{movie.overview}</p>
-        </MovieItem>
-      ))}
-    </MovieList>
-  );
+            window.addEventListener('scroll', handleScroll);
+            return () => window.removeEventListener('scroll', handleScroll);
+        }
+    }, [currentPage]);
+
+    const loadMoreItems = () => {
+        const nextPage = currentPage ? currentPage + 1 : 1;
+        const options = {
+            method: 'GET',
+            url: Url,
+            params: { language: 'ko', page: nextPage },
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            }
+        };
+
+        setLoading(true);
+
+        axios.request(options)
+            .then(response => {
+                setMovies(prevMovies => [...prevMovies, ...response.data.results]);
+                setCurrentPage(nextPage);
+            })
+            .catch(err => console.error(err))
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
+    return (
+        <>
+            <Container>
+                {movies.map((item) => (
+                    <ItemMovie 
+                        key={item.id} 
+                        id={item.id}
+                        poster={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                        title={item.title}
+                        original_title={item.original_title}
+                        release_date={item.release_date}
+                        rating={item.vote_average.toFixed(1)}
+                        overview={item.overview}
+                    />
+                ))}
+            </Container>
+            {!pagingPage && loading && <Spinner />}
+        </>
+    );
 };
 
 export default ListMovie;

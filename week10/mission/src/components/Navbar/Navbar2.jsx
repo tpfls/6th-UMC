@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { FiMenu } from 'react-icons/fi';
 import Navbar2Menu from "./Navbar2Menu";
+import ShareKakao from "../../api/ShareKakao";
 
 const NavContainer = styled.div`
     width: 100%;
@@ -33,6 +34,12 @@ const NavP = styled(NavLink)`
     }
 `;
 
+const LogoContainer = styled.div`
+    display: flex;
+    align-items: cneter;
+    gap: 0.5vw;
+`
+
 const Navbar2 = () => {
     const [menuVisible, setMenuVisible] = useState(false);
 
@@ -43,7 +50,10 @@ const Navbar2 = () => {
     return (
         <NavContainer>
             <NavContainer2>
-                <NavP to="/">UMC Movie</NavP>
+                <LogoContainer>
+                    <NavP to="/">UMC Movie</NavP>
+                    <ShareKakao/>
+                </LogoContainer>
                 <NavP as="div" style={{fontSize: "1.5vw"}} onClick={handleMenu}>
                     <FiMenu />
                 </NavP>

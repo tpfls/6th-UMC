@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import PageContainer from "../styles/PageStyle";
 import InputLogin from "../components/LoginPage/input-login";
+import LoginKakao from '../api/LoginKakao';
 
 const LoginP = styled.p`
     font-size: 1vw;
@@ -122,6 +123,7 @@ const LoginPage = () => {
                 <InputLogin placeholder="비밀번호" type="password" value={password} onChange={handlePassword} error={passwordError}/>
 
                 <LoginButton disabled={isDisabled} onClick={handleLogin}>로그인</LoginButton>
+                <LoginKakao></LoginKakao>
             </LoginContainer>
         </PageContainer>
     )

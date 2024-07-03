@@ -30,6 +30,7 @@ function App() {
           <Route path="/" element={<MainPage/>} />
           <Route path="/signup" element={<SignUpPage/>} />
           <Route path="/login" element={<LoginPage/>} />
+          <Route path="/login/auth" element={<LoginPage />} />
           <Route path="/popular" element={<PopularPage/>} />
           <Route path="/now" element={<NowPlayingPage/>} />
           <Route path="/top" element={<TopRatedPage/>} />
